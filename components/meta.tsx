@@ -12,7 +12,6 @@ const Meta = () => {
             <meta name="theme-color" content="#000" />
             <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
             <meta name="description" content="I love writing code and talking about it." />
-            <meta property="og:image" content="/favicon/android-chrome-512x512.png" />
         </Head>
     );
 };
