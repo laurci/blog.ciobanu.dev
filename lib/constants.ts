@@ -1,1 +1,1 @@
-export const SUBSCRIBE_URL = "https://subscribe.me";
+export const SUBSCRIBE_URL = "/newsletter";
