@@ -1,7 +1,7 @@
 ---
 title: "Why doesn't anyone talk about the coolest Bun feature?"
-excerpt: "Everyone is excited about Bun, but nobody is talking about its macros system! In this post I will show you a bit about this system and how to use it."
-coverImage: "/assets/blog/bun-macros/cover.jpg"
+excerpt: "Everyone is excited about Bun, but nobody is talking about its macros system! In this post I will show you a bit about this system, how it works and how to use it."
+coverImage: "/assets/blog/bun-macros/cover.png"
 date: "2022-08-11T00:00:00.000Z"
 author:
     name: Laurentiu Ciobanu
