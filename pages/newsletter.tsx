@@ -26,6 +26,11 @@ export default function Newsletter() {
                             marginWidth={0}
                             src="https://app.mailjet.com/widget/iframe/8hSP/NMr"
                             width="40%"
+                            style={{
+                                width: "40%",
+                                maxWidth: "40%",
+                                minWidth: "300px",
+                            }}
                         ></iframe>
                     </div>
                 </Container>
