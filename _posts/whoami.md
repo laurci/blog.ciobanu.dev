@@ -1,6 +1,6 @@
 ---
 title: "$ whoami"
-excerpt: "Hello world!"
+excerpt: "Hello world! In this post I will tell you"
 coverImage: "/assets/blog/who-am-i/cover.png"
 date: "2022-08-07T00:00:00.000Z"
 author:
