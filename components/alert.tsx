@@ -1,0 +1,42 @@
+import Container from "./container";
+import cn from "classnames";
+import {SUBSCRIBE_URL} from "../lib/constants";
+
+type Props = {
+    preview?: boolean;
+};
+
+const Alert = ({preview}: Props) => {
+    return (
+        <div
+            className={cn("border-b", {
+                "bg-neutral-800 border-neutral-800 text-white": preview,
+                "bg-neutral-50 border-neutral-200": !preview,
+            })}
+        >
+            <Container>
+                <div className="py-2 text-center text-sm">
+                    {preview ? (
+                        <>
+                            This page is a preview.{" "}
+                            <a href="/api/exit-preview" className="underline hover:text-teal-300 duration-200 transition-colors">
+                                Click here
+                            </a>{" "}
+                            to exit preview mode.
+                        </>
+                    ) : (
+                        <>
+                            If you want to get updates on when I post something{" "}
+                            <a href={SUBSCRIBE_URL} className="underline hover:text-blue-600 duration-200 transition-colors">
+                                subscribe to my newsletter
+                            </a>
+                            .
+                        </>
+                    )}
+                </div>
+            </Container>
+        </div>
+    );
+};
+
+export default Alert;
