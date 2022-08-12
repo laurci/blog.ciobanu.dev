@@ -7,7 +7,7 @@ author:
     name: Laurentiu Ciobanu
     picture: "/assets/blog/authors/laur.png"
 ogImage:
-    url: "/assets/blog/who-am-i/cover.jpg"
+    url: "/assets/blog/who-am-i/cover.png"
 ---
 
 ## Hello world!
