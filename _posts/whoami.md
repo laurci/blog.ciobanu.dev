@@ -28,6 +28,10 @@ I love meta-programming and code generation. I have spent a lot of time tinkerin
 
 Other than code, I also do electronics (prototyping, PCB design, etc.), 3d printing (and other kinds of manufacturing like laser cutting, CNC cutting, etc.) and the cloud (one of my biggest passions is Kubernetes and I build a lot of tools for this platform including [Kubernate](https://github.com/laurci/kubernate)).
 
+## What's with the sheep?
+
+My last name is Ciobanu, which translates to "shepherd", thus the sheep represents the code I write.
+
 ## That's about it!
 
 To wrap it up, I can't wait to write more posts and share my progress, ideas and knowledge with you. I will write tutorials, articles, devlogs and all sorts of other stuff, but I will always write about something I am passionate about (that's code ❤️).
