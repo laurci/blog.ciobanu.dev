@@ -19,6 +19,7 @@ export default function Index({allPosts}: Props) {
             <Layout>
                 <Head>
                     <title>ciobanu.dev | Blog</title>
+                    <meta property="og:image" content="/favicon/android-chrome-512x512.png" />
                 </Head>
                 <Container>
                     <Intro />
