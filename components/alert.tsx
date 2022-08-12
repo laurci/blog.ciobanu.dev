@@ -26,7 +26,7 @@ const Alert = ({preview}: Props) => {
                         </>
                     ) : (
                         <>
-                            If you want to get updates on when I post something{" "}
+                            If you want to get updates when I post something{" "}
                             <a href={SUBSCRIBE_URL} className="underline hover:text-blue-600 duration-200 transition-colors">
                                 subscribe to my newsletter
                             </a>
