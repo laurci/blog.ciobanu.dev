@@ -7,7 +7,7 @@ author:
     name: Laurentiu Ciobanu
     picture: "/assets/blog/authors/laur.png"
 ogImage:
-    url: "/assets/blog/bun-macros/cover.jpg"
+    url: "/assets/blog/bun-macros/cover.png"
 ---
 
 ## What is Bun?
