@@ -38,7 +38,7 @@ The voting will be split into 3 categories (**creativity**, **theme** and **wow 
 
 After the 24 hours are over every team must have everything they worked on in a public GitHub repository. In the `README.md` will be the intro/description of the project. A video presentation linked in the document would be very helpful, but not a requirement. Every team gets 5 minutes to present their project in front of everybody, followed by 5-7 minutes of Q&A.
 
-After the presentations, the voting window will be opened. You will have ~1 hour to decide and evaluate other projects.
+After the presentations, the voting window will be opened. You will have ~1 hour to evaluate other projects and vote.
 
 ## I want in
 
