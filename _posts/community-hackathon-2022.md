@@ -1,6 +1,6 @@
 ---
-title: "I'm organizing a Hackathon!"
-excerpt: "A community hackathon for friends and friends of friends! Here's how it will work!"
+title: "I am organizing a Hackathon!"
+excerpt: "A community hackathon for friends and friends of friends! Here is how it will work!"
 coverImage: "/assets/blog/hackathon-2022/cover.png"
 date: "2022-10-17T00:00:00.000Z"
 author:
@@ -38,6 +38,6 @@ After the 24 hours are over every team must have everything they worked on in a 
 
 After the presentations, the voting window will be opened. You will have ~1 hour to decide and evaluate other projects.
 
-## I want in?
+## I want in
 
 If you're interested (and/or have questions) please [join the discord server](https://discord.gg/ujgf3sMP3t). Here I will post all the updates and will most likely also host the event.
