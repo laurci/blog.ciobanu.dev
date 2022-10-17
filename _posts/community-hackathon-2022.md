@@ -26,7 +26,9 @@ You **can** bring **pre-made assets**. Both **hardware and software** project ar
 
 ## The theme
 
-Here's where we'll take some inspiration from the **game jam** world. The theme will **not be overly specific** like in other hackathons. Instead, we will pick a vague theme that you can use as a starting point for your idea. Your project must be **centered around the theme** but you won't have any other limitation, so **go nuts**!
+Here's where we'll take some inspiration from the **game jam** world. The theme will **not be overly specific** like in other hackathons. Instead, we will pick a vague theme that you can use as a starting point for your idea. Your project must be **centered around the theme** but you won't have any other limitation, so **go nuts**! Example of themes (these may or may not be used): **Night vs Day**, **2030**, **Running out of energy**.
+
+We will create a list of 20/30 themes. You will up-vote and down-vote them! The theme for the event will be randomnly chosen from the top 5.
 
 ## The winner
 
