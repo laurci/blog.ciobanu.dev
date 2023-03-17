@@ -20,7 +20,7 @@ If you target Typescript as the language for the client SDK, you even get some b
 
 ## Getting started
 
-I don't use JS. I can't breathe in it. I don't like it. I don't like the syntax, I don't like the tooling, I don't like anything about it. Sprinkle some static types on top of that dumpster fire and suddenly it becomes usable. All that to say, I'm only using Typescript, I don't touch JS.
+I don't use JS. I can't breathe in it. I don't like it. I don't like the syntax, I don't like the tooling, I don't like anything about it. Sprinkle some static types on top of that dumpster fire and suddenly it becomes usable. That is to day, I'm using only Typescript, I don't touch JS.
 
 So, you can start by following [their guide](https://docs.genez.io/genezio-documentation/getting-started/lets-get-you-started) but use the Typescript example instead of the Javascript one. It's the same thing, but with types.
 
