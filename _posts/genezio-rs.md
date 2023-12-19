@@ -2,7 +2,7 @@
 title: "Running Rust on Genezio. You heard me right."
 excerpt: "Doing things you're not supposed to is always exciting. In this blog post I'm exploring if it's possible to run Rust code on Genezio."
 coverImage: "/assets/blog/genezio-rs/cover.png"
-date: "2023-12-20T00:00:00.000Z"
+date: "2023-12-18T00:00:00.000Z"
 author:
     name: Laurentiu Ciobanu
     picture: "/assets/blog/authors/laur.png"
@@ -242,7 +242,7 @@ I guess the not-so-popular saying “Plan B always goes up in flame” is also a
 
 ## Step 4.  Plan C.
 
-We can compile Rust to `arm64-musl` as a standalone, statically linked executable. We can store it as base64, decode it, write it to disk, and use **execSync** to run it and block execution. Sounds like a plan. Let’s try it!
+We can compile Rust to `arm64-musl` as a standalone, statically linked executable. We can store it as base64, decode it, write it to disk, and use `execSync` to run it and block execution. Sounds like a plan. Let’s try it!
 
 First the Rust code. I just used the example for Lambda with Axum provided by AWS from [here](https://github.com/awslabs/aws-lambda-rust-runtime/blob/main/examples/http-axum/src/main.rs) and simplified it a bit.
 
@@ -277,7 +277,6 @@ Now all we need is the JavaScript code for Genezio. It looks something like this
 
 ```jsx
 import { writeFileSync, chmodSync } from 'fs';
-import { createRequire } from 'module';
 import { execSync } from 'child_process';
 
 const TRAP_BIN = Buffer.from('{base64}', 'base64');
@@ -297,7 +296,7 @@ export class Service {
 }
 ```
 
-This code decodes the base64 string containing our executable, writes it to disk to the `/tmp` file system (we needed something writeable), makes it executable, and starts it using `execSync`. The rest of the initialization code from Genezio doesn’t run, so the Lambda Node runtime doesn’t get to poll events. Now our executable contains the Lambda Rust runtime that will poll the events instead.
+This code decodes the base64 string containing our executable, writes it to disk to the `/tmp` file system (we needed something writeable), makes it executable, and starts it using `execSync`. The rest of the initialization code from Genezio doesn’t run, so the Lambda Node runtime doesn’t get to poll events. Instead, our executable contains the Lambda Rust runtime that will poll the events and execute our Rust handler.
 
 Now if we deploy this to Genezio, and open the lambda URL in the browser (you can get it from the Genezio dashboard) we can see the “Hello rust!” JSON message we responded with. That’s it! We got it! 🎉 🎉 🎉
 
