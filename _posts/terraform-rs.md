@@ -53,7 +53,7 @@ If I’m making a provider, I need an infrastructure tool/service to automate. M
 
 By the end of this journey, I want to run a single command and have a fully working multi-node Kubernetes Cluster on top of Ubicloud VMs.
 
-_Hello! Future me here. Let me break the fourth wall here a bit, and just for full transparency, acknowledge that Ubicloud did reach out to me, but they are not sponsoring this blog. They did, however, credit my account for the amount I spent on their cloud, and they helped out a lot with their API. Many thanks to the team behind Ubicloud! You guys have an awesome product. Now, back to the blog!_
+_Hello! Future me here. Let me break the fourth wall a bit, and just for full transparency, acknowledge that Ubicloud did reach out to me, but they are not sponsoring this blog. They did, however, credit my account for the amount I spent on their cloud, and they helped out a lot with their API. Many thanks to the team behind Ubicloud! You guys have an awesome product. Now, back to the blog!_
 
 ## TODO
 
