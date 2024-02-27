@@ -20,3 +20,8 @@
 .markdown a {
     text-decoration: underline;
 }
+
+/* center and zoom images */
+.markdown img {
+    @apply mx-auto;
+}

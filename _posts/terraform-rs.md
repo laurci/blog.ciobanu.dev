@@ -26,7 +26,7 @@ I know what you’re thinking: “That’s cool, but I already knew that and I a
 
 **So, what are providers?**
 
-I think the closest analogue we can me is **plugins.** Providers are **highly specialized plugins** for Terraform. The CLI parses the configuration files and then it finds, loads, and configures the providers used. Those can then be used to plan and apply infrastructure changes.
+I think the closest analog we can make is **plugins.** Providers are **highly specialized plugins** for Terraform. The CLI parses the configuration files and then it finds, loads, and configures the providers used. Those can then be used to plan and apply infrastructure changes.
 
 You can even write your own providers in Go with the Provider/Plugin framework for Terraform. [This blog](https://www.hashicorp.com/blog/writing-custom-terraform-providers) from Hashicorp goes through the process. You define the schemas for your resources and handlers for creating, updating, and deleting them. I tried writing one following the guide and it went pretty smoothly. It was quite an enjoyable and simple process.
 
@@ -42,3 +42,17 @@ Not even a few hours later, at home, sitting on the couch, enjoying a good episo
 He’s awful, but he is also right. What are providers? Terraform is written in Go, and providers are also written in Go, so are they dynamic libraries? No. That can’t be. They have a main function. They have to be standalone processes. If that’s the case, how does it get data to/from Terraform? Are they sharing memory, using a socket, or talking via stdin/out? Is this even safe?
 
 So many questions, so few answ… Oh, Hashicorp wrote about this in their docs. [How Terraform works with plugins](https://developer.hashicorp.com/terraform/plugin/how-terraform-works). Seems reasonable, let’s see.
+
+![cat reading gif](https://media1.giphy.com/media/NFA61GS9qKZ68/giphy.gif?cid=7941fdc6zt2os3o16a8kkop7qhcp8mmf56yr5oeloh9ipmik&ep=v1_gifs_search&rid=giphy.gif&ct=g)
+
+Got it! They are standalone processes! And, even more, they are **tiny gRPC servers**! From what I understand, Terraform recommends Go and using their framework, but they don’t enforce it. The protocol is [documented here](https://developer.hashicorp.com/terraform/plugin/terraform-plugin-protocol), and it looks to me like it could be implemented in any language. You know what this means lads and gals, I’m making a Terraform Provider in Rust.
+
+## Ubicloud
+
+If I’m making a provider, I need an infrastructure tool/service to automate. My choice here is [ubicloud](https://www.ubicloud.com/)'s hosted offering. They offer very affordable compute, but are still an early-stage startup and don’t have many managed services. Perfect for automation.
+
+By the end of this journey, I want to run a single command and have a fully working multi-node Kubernetes Cluster on top of Ubicloud VMs.
+
+_Hello! Future me here. Let me break the fourth wall here a bit, and just for full transparency, acknowledge that Ubicloud did reach out to me, but they are not sponsoring this blog. They did, however, credit my account for the amount I spent on their cloud, and they helped out a lot with their API. Many thanks to the team behind Ubicloud! You guys have an awesome product. Now, back to the blog!_
+
+## TODO
