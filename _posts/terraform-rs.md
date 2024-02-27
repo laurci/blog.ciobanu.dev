@@ -56,3 +56,5 @@ By the end of this journey, I want to run a single command and have a fully work
 _Hello! Future me here. Let me break the fourth wall here a bit, and just for full transparency, acknowledge that Ubicloud did reach out to me, but they are not sponsoring this blog. They did, however, credit my account for the amount I spent on their cloud, and they helped out a lot with their API. Many thanks to the team behind Ubicloud! You guys have an awesome product. Now, back to the blog!_
 
 ## TODO
+
+![final result](/assets/blog/terraform-rs/working-page.jpeg)
