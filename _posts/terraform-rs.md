@@ -18,7 +18,7 @@ This blog is about some **internals** of Terraform, more specifically about **Te
 
 **So, what are providers?**
 
-Let’s say you want to automate the creation of an AWS S3 bucket. You create a `bucket.tf` file, open it in your editor and create your `aws_s3_bucket` resource. You then run `terraform apply`, check the generated plan, and confirm it. If everything works, you will see your shiny brand-new S3 bucked in your AWS console.
+Let’s say you want to automate the creation of an AWS S3 bucket. You create a `bucket.tf` file, open it in your editor and create your `aws_s3_bucket` resource. You then run `terraform apply`, check the generated plan, and confirm it. If everything works, you will see your shiny brand-new S3 bucket in your AWS console.
 
 How did this happen? How does Terraform know to create resources in AWS? The answer is simple: **it doesn’t know**, but the AWS Provider does. Terraform just parses the configuration and keeps the state of your stack, then it uses providers for each resource to compute the differences and apply them. Simply put, providers are responsible for translating state changes into the proper API calls that configure the infrastructure to reflect the updates.
 
