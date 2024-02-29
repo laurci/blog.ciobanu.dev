@@ -102,10 +102,40 @@ My other question is: **why Terraform, why?** They already use JSON in some othe
 
 Anyway, I found this great crate [rmp](https://crates.io/crates/rmp) for parsing `msgpack` (it even works with `serde`) and I managed to hack in empty values (but only for strings, and it’s very hacky).
 
-## Actually doing some work
+## Finally doing some work
 
-We are now ready to do some API calls. I quickly threw together a Ubicloud API client (it’s a very small API at the moment) to manage VMs. You can find it here but I would highly discourage you from using it, as their API is not stable yet (and no docs published).
+We are now ready to do some API calls. I quickly threw together a Ubicloud API client (it’s a very small API at the moment) to manage VMs. You can find it [here](https://github.com/laurci/terraform-rust-provider/blob/main/src/ubicloud.rs) but I would highly discourage you from using it, as their API is not stable yet (and no docs published).
 
-## TODO
+Let’s start with the plan step. We have to implement the `PlanResourceChange` RPC (you can find the complete implementation [here](https://github.com/laurci/terraform-rust-provider/blob/459490ab4dd523457d58c54efb6e6179c7d931bc/src/server.rs#L349)). We get as inputs the prior state and the configuration we have to apply. The prior state is optional. In that case, it means that the resource is newly added. The config can also be missing. In this case, it means that the resource needs to be deleted. There are many other cases to handle, and most of them we’ll need to reuse in the apply step, so I created a utility function to compute the resource state and the action we need to take, you can find it [here](https://github.com/laurci/terraform-rust-provider/blob/459490ab4dd523457d58c54efb6e6179c7d931bc/src/util.rs#L100).
+
+We can now continue with the apply step. It’s very similar to the plan step, but we need to implement the `ApplyResourceChange` RPC instead (full implementation [here](https://github.com/laurci/terraform-rust-provider/blob/459490ab4dd523457d58c54efb6e6179c7d931bc/src/server.rs#L413)). The inputs are mostly the same but we also get the previously planned state and we can use it to make sure the plan shown to the user is consistent with the actions we are actually taking. We will use that same utility function from before to compute the new resource state and the actions, and then we can perform those actions using the API client.
+
+One important mention here is that we have only one resource type, so I didn’t have to bother to check the resource we are processing. In a real implementation, the configuration, plan, and actions would be completely different between, let's say, a VM and a VPC.
+
+That’s it! We can now automate the creation of Ubicloud VMs!
+
+## Automate, automate, automate
+
+Now, for the grand finale, I want to have a fully working Kubernetes cluster, with a domain attached to it, and have it serve traffic from a container, through an ingress, with a real SSL certificate - all 100% automated.
+
+Let’s begin with the infrastructure part of this madness. I have a [Terraform configuration here](https://github.com/laurci/terraform-rust-provider/blob/main/tf/main.tf) that creates 3 VMs on Ubicloud (one master, 2 workers). To assist that, we also need to generate an SSH key pair for the SSH connection. We also have to create DNS records with the public IPs of the VMs, and for that, I used the Namecheap provider. The public IPs are taken as outputs of the VM resources. I also generated the K8s token with Terraform, as it was convenient. I want to use Ansible for the next step, so I also used the Ansible provider to output the connection information as hosts and variables.
+
+Just a note here, secrets will be stored in plain text in the state, and I strongly recommend using a secret store (like Vault) instead.
+
+Now that we have some VMs, let’s get Kubernetes going. I used Ansible and the Terraform inventory plugin to import the hosts defined in Terraform. For networking, I wanted to use a VPN, and my choice was `wireguard`. I created [this basic playbook](https://github.com/laurci/terraform-rust-provider/blob/main/tf/playbook/prereq.ansible.yml) that runs on all nodes to update `apt` and install `wireguard`. We can now move on to setting up the cluster. Starting with [the master node configuration](https://github.com/laurci/terraform-rust-provider/blob/main/tf/playbook/master.ansible.yml), we prepare the networking stuff and install our K8s distribution of choice: [k3s](https://k3s.io/). [The same steps](https://github.com/laurci/terraform-rust-provider/blob/main/tf/playbook/worker.ansible.yml) are taken for the worker nodes too, with the main difference being that we configure them as workers.
+
+Now we just need to use Helm to install the `ingress-nginx` and `cert-manager` charts in the cluster and then we can deploy [our basic workload](https://github.com/laurci/terraform-rust-provider/blob/main/tf/k8s/demo.yaml) with `kubectl`. And, we’re done! Let’s take a look at it.
 
 ![final result](/assets/blog/terraform-rs/working-page.jpeg)
+
+Beautiful! Now we can just `terraform destroy` it out of existence, and it’s like it never happened!
+
+## Conclusions
+
+This was a very interesting journey for me! I love learning about and exploiting the internals of seemingly **“magic”** systems.
+
+Thanks again to [Ubicloud](ubicloud.com) for helping me out during the development of this madness. It’s a really cool platform and they have an awesome team and a lot of fresh ideas! You should check them out, [here’s the link again](ubicloud.com).
+
+These posts take a lot of time to prepare and write. If you like the content I’m making and you wish to support these kinds of useless but fun journeys, [I have a GitHub Sponsors page now](https://github.com/sponsors/laurci/)!
+
+That being said, thanks for walking with me! Have a nice one!
