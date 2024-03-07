@@ -2,7 +2,7 @@
 title: "Do you even JIT?"
 excerpt: "In this post, I’ll tell you the story of when I was learning to write an optimizing JIT compiler by writing an optimizing JIT compiler first. Oh, and it was for Brainf*ck, so enjoy! "
 coverImage: "/assets/blog/bf-jit/cover.png"
-date: "2024-03-11T00:00:00.000Z"
+date: "2024-03-08T00:00:00.000Z"
 author:
     name: Laurentiu Ciobanu
     picture: "/assets/blog/authors/laur.png"
