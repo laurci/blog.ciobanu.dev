@@ -392,6 +392,6 @@ These posts take a lot of time to prepare and write. If you like the content Iâ€
 
 That being said, thanks for walking with me! Have a nice one!
 
-Oh, and also, brfore I go, here's a photo of a Mandelbrot Set view someone wrote in Brainf\*ck (running on this JIT).
+Oh, and also, before I go, here's a photo of a Mandelbrot Set view someone wrote in Brainf\*ck (running on this JIT).
 
 ![Mandelbrot Set view in BF](/assets/blog/bf-jit/output.png)
