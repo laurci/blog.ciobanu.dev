@@ -150,7 +150,7 @@ pub fn optimize_ops(ops: Vec<Operation>) -> Vec<Operation> {
 
 We take a peekable iterator (that means we can look into the future without cloning). We can then look at every operation, and if it’s one that we can optimize, we can count how many consecutive operations of the same kind we have. We then store a single operation with the matching kind and count.
 
-That’s it. That was the parser. The full implementation is [here](https://github.com/laurci/bf-jit/blob/443e15f11c38412b7e50ff1a1718a1f6e01f46d4/src/parser.rs#L14). We could implement a better, single-pass parser, but this will do just fine.
+That’s it. That was the parser. The full implementation is [here](https://github.com/laurci/bf-jit/blob/main/src/parser.rs#L14). We could implement a better, single-pass parser, but this will do just fine.
 
 ## A caveman’s JIT
 
@@ -386,10 +386,12 @@ That was it. We just wrote a JIT compiler, including the parser and the emitter.
 
 Is this useful tho? **No, just fun.**
 
-Like, how fast does Brainf\*ck have to be anyway? Is not like someone is crazy enough to write an OS or a Mandelbrot Set view in it, right? **(uhm).**
+Like, how fast does Brainf\*ck have to be anyway? Is not like someone is crazy enough to write something like a Mandelbrot Set view in Brainf\*ck, right? **(uhm).**
 
 These posts take a lot of time to prepare and write. If you like the content I’m making and you wish to support these kinds of useless but fun journeys, [I have a GitHub Sponsors page now](https://github.com/sponsors/laurci/)!
 
 That being said, thanks for walking with me! Have a nice one!
+
+Oh, and also, brfore I go, here's a photo of a Mandelbrot Set view someone wrote in Brainf\*ck (running on this JIT).
 
 ![Mandelbrot Set view in BF](/assets/blog/bf-jit/output.png)
