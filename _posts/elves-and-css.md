@@ -26,7 +26,7 @@ Oh, and also, there's the new `'use cache'`, but my blood is already boiling, so
 
 I'm getting mad even by just thinking about the comments for this post __"It's very simple bro, you're too stupid to understand."__.
 
-You want simple? I'll show you f\*cking simple. Actually, I'll give you the bare minimum.
+You want simple? I'll show you f\*cking simple. Actually, I'll show you the bare minimum.
 
 ## static websites, the web and HTTP
 
