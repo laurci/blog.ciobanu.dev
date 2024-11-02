@@ -20,13 +20,13 @@ And now we have `'use cache'`?
 
 ![everything is fine](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXhldzJrbmI1ZWhibGVsZ3Nqdmt2NXk2bmRxY2l6NnpmNDJuZ3JiYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NTur7XlVDUdqM/giphy.webp)
 
-What the f\*ck would've been wrong with `import {fetchAndCache} from "next/fetch";`? Why change the way `fetch` (a global __AND__ a web standard) works by default? This is spooky magic, not in the good way. Ok, and after the backlash, we cahnge it again, to do the exact opposite by default?
+What the f\*ck would've been wrong with `import {fetchAndCache} from "next/fetch";`? Why change the way `fetch` (a global __AND__ a web standard) works by default? This is spooky magic, not in the good way. Ok, and after the backlash, we change it again, to do the exact opposite by default?
 
 Oh, and also, there's the new `'use cache'`, but my blood is already boiling, so I'm not going into it.
 
 I'm getting mad even by just thinking about the comments for this post __"It's very simple bro, you're too stupid to understand."__.
 
-You want simple? I'll give you f\*cking simple. Actually, I'll give you the bare minimum.
+You want simple? I'll show you f\*cking simple. Actually, I'll give you the bare minimum.
 
 ## static websites, the web and HTTP
 
