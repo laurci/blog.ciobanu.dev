@@ -10,7 +10,11 @@ export default async function markdownToHtml(markdown: string) {
         .use(remarkParse)
         .use(remarkRehype)
         .use(rehypeFormat)
-        .use(rehypeHighlight)
+        .use(rehypeHighlight, {
+            languages: {
+                's': require("highlight.js/lib/languages/x86asm"),
+            }
+        })
         .use(rehypeStringify)
         .process(markdown);
 

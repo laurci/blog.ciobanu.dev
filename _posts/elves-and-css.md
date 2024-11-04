@@ -460,7 +460,7 @@ We'll rewrite the server in x86 assembly. Ready? Hereeeee weeeee goooooooo.
 
 Let's start again with the hello world.
 
-```asm
+```S
 section .data
     msg db 'hello world', 0xa ; 0xa is the newline character
     len equ $ - msg
@@ -490,7 +490,7 @@ We only use 2 instructions: the `mov` instruction to move data between registers
 
 Let's rewrite the TCP server in assembly.
 
-```asm
+```S
 section .data
 
 RESPONSE:
