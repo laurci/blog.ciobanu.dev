@@ -241,11 +241,11 @@ To test it out, compile the code with `gcc -o server server.c` and run the execu
 
 This is pretty cool, also pretty deep right? But I told you when we started that we're not going to use any dependencies. None. NADA. And, yet, here I am including `stdio.h`, `stdlib.h`, `string.h`, `unistd.h` and `arpa/inet.h`. What's up with that?
 
-THAT is the C standard library, in my case it's `glibc`. It's a collection of functions, macros and types that are used to interact with the POSIX system. It's a very minimal wrapper around syscalls provided by the linux kernel. But, it's alo a dependency other than the OS, and I won't have it.
+THAT is the C standard library, in my case it's `glibc`. It's a collection of functions, macros and types that are used to interact with the POSIX system. It's a very minimal wrapper around syscalls provided by the linux kernel. But, it's also a dependency other than the OS, and I won't have it.
 
 ## no safety net
 
-So, what can we do? And alo, what are syscalls?
+So, what can we do? And also, what are syscalls?
 
 Syscalls are the way a program can interact with the kernel. They are the only way a program can ask the kernel to do something on its behalf (besides the file system, IOCTLs, char device drivers and some other stuff). It's like calling a kernel function from user space (our program), but without having direct access to kernel memory.
 
