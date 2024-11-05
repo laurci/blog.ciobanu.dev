@@ -131,8 +131,6 @@ Content-Length: ${HTML.length}
 ${HTML}
 `.trim().replace(/\n/g, '\r\n');
 
-console.log(RESOPNSE);
-
 const server = net.createServer((socket) => {
     socket.on('data', (data) => {
         const _request = data.toString(); // we don't need anything from the request, so ignore it
