@@ -12,6 +12,9 @@ ogImage:
 
 **WARNING**: this entire blog post is a rant.
 
+[Here's the result of this blog post.](https://elves-and-css.ciobanu.dev)
+
+
 So, [Next.js Conf](https://nextjs.org/conf) 2024 just happened, and I'm so mad. What the f\*ck happened to the web? What have we done? How much complexity can we f\*cking stack on top of this shit platform, and why do we have to solve everything with Javascript (this is a different rant)? 
 
 Is this component rendered on the server or is it on the client? Or both? Should I `'use server'` or `'use client'`? Or neither? What's the default behaviour of `fetch` again? Does it cache?
@@ -30,7 +33,7 @@ You want simple? I'll show you f\*cking simple. Actually, I'll show you the bare
 
 ## ground rules
 
-So, I want to make a very simple static website, with some text, some styling and a link you can click on. Also, it has to be accesible from a regular browser and over the internet.
+So, I want to make a very simple static website, with some text, some styling and a link you can click on. Also, it has to be accessible from a regular browser and over the internet.
 
 But, here's the twist, I want to have the absolute minimum number of dependencies. The only dependency I'll accept is a POSIX compatible OS (we'll go for Linux). That means no fancy frameworks, no libraries, not even the `stdlib`. How do we get there?
 
@@ -50,7 +53,7 @@ Now that we have the IP address, the real fun begins. The browser acts as a __HT
 
 Hold on, hold on. What does it mean to connect to an IP on a port? Well, it can mean a lot of things, but in our case, it means we're going to talk about __TCP__.
 
-TCP is a protocol; one of many. It defines a set of rules two computers follow to be able to talk to each other on the internet. One computer is called a __server__, it listens and waits for incoming connections from other computers, called __clients__. A client reaches out to a server to connect, and if the connection is succesful, a bi-directional stream is created. Both the client and the server can send and receive data to/from each other using this stream.
+TCP is a protocol; one of many. It defines a set of rules two computers follow to be able to talk to each other on the internet. One computer is called a __server__, it listens and waits for incoming connections from other computers, called __clients__. A client reaches out to a server to connect, and if the connection is successful, a bi-directional stream is created. Both the client and the server can send and receive data to/from each other using this stream.
 
 Hold on, hold on. So, an HTTP server is a TCP server and an HTTP client is a TCP client? And, if TCP is just a channel to send data back and forth, what are they actually sending?
 
@@ -70,9 +73,9 @@ After that we have the __headers__. They contain metadata about the request. The
 
 Following the headers is an empty new line and then the __request body__. It contains the actual data we want to transmit.
 
-The response is very similar, the only meaningful difference is that instead of a request line, we have a __status line__ that looks somehting like this __`HTTP/VERSION STATUS_CODE STATUS_MESSAGE`__. The __status code__ represents the outcome of the response (success, failure, etc.). Here's a [list of standard status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) you might find in the wild.
+The response is very similar, the only meaningful difference is that instead of a request line, we have a __status line__ that looks something like this __`HTTP/VERSION STATUS_CODE STATUS_MESSAGE`__. The __status code__ represents the outcome of the response (success, failure, etc.). Here's a [list of standard status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) you might find in the wild.
 
-Now, lets look at a complete exemple for our static website. Here's how the request might look like:
+Now, lets look at a complete example for our static website. Here's how the request might look like:
 
 ```txt
 GET / HTTP/1.1
@@ -166,7 +169,7 @@ Content-Length: 203
 </html>
 ```
 
-This will be very handy for were we're going.
+This will be very handy for where we're going.
 
 ## stranded at __sea__ (hehe)
 
@@ -228,7 +231,7 @@ int main()
 }
 ```
 
-So, to begin, we have the same static response, stored in a constant (and its length). Looking into the main function, the first thing we do is setup a `sockaddr_in` struct that will hold the server's address (were is the server listening from). We set the family to `AF_INET` (IPv4), the address to `INADDR_ANY` (listen on all interfaces) and the port to `8080`. When we set the port, we need to convert it from host byte order to network byte order (always big endian aka MSB first) with `htons`.
+So, to begin, we have the same static response, stored in a constant (and its length). Looking into the main function, the first thing we do is setup a `sockaddr_in` struct that will hold the server's address (where is the server listening from). We set the family to `AF_INET` (IPv4), the address to `INADDR_ANY` (listen on all interfaces) and the port to `8080`. When we set the port, we need to convert it from host byte order to network byte order (always big endian aka MSB first) with `htons`.
 
 We continue by creating a socket with `socket(AF_INET, SOCK_STREAM, 0)`. The first argument specifies the address family, the second the socket type (in this case `SOCK_STREAM` for TCP) and the last one is the protocol (0 means auto).
 
@@ -250,7 +253,7 @@ Syscalls are the way a program can interact with the kernel. They are the only w
 
 How does it work? If it's not safe to share memory, how can we pass arguments to these kernel functions?
 
-While we don't have access to kernel stuff, it has access to our memory, open file descriptors, child processes, threads, and also to our registers. SO, here's what you have to do to make a syscall: prepare your data the way the kernel expects it, put it in registers acording to the syscall calling convention for your architecture, and then trigger the syscall with an interrupt. The kernel will stop your program, do the thing you asked for, and then return control to your program. Then you get the return value in a register acording to the syscall calling convention for your architecture.
+While we don't have access to kernel stuff, it has access to our memory, open file descriptors, child processes, threads, and also to our registers. SO, here's what you have to do to make a syscall: prepare your data the way the kernel expects it, put it in registers according to the syscall calling convention for your architecture, and then trigger the syscall with an interrupt. The kernel will stop your program, do the thing you asked for, and then return control to your program. Then you get the return value in a register according to the syscall calling convention for your architecture.
 
 Wow, wow, wow, hold on! What's a calling convention? What's a register? Weren't we talking about web stuff?
 
@@ -595,13 +598,25 @@ handle_conn:
 
 Take a look at it. It's beautiful. It's simple. It's powerful. It's the bare minimum.
 
+To run this code, we need to assemble it (we'll use `nasm`) and link it (we'll use `ld`). Here's how you can do it:
+
+```sh
+nasm -f elf32 server.asm -o server.o
+ld -m elf_i386 server.o -o server
+./server
+```
+
+Now you can open a browser and go to [`http://localhost:8080`](http://localhost:8080) to hopefully see the same page.
+
 The code is almost a line by line translation of the C code. We have the same sections: `.data` for data, and `.text` for code. We have the same labels for the messages and the server address. We have the same syscalls. We have the same loop. It's the same program, but in assembly.
 
 If you got to this point, I'm proud of you. You've seen the bottom of the rabbit hole. You've seen the bare metal. You've seen the essence of computing. Almost.
 
-Any reasonable person would stop here. But here's the thing, I'm not reasonable, and this is not the absolute minimum. We can go lower. We can go deeper. We can go to the very bottom.
+You can stop here. Any reasonable person would stop here. But here's the thing, I'm not reasonable, and this is not the absolute minimum. We can go lower. We can go deeper. We can go to the very bottom.
 
 ## Titan, do you copy?
+
+**WARNING**: This section is not for begineers. The author does not explain everything in detail. It goes over the basics and expects the reader to go and learn more on their own (by reading the specs or other resources).
 
 An assembly program is a human-readable representation of machine code. It's a step above machine code. An assembler turns assembly code into machine code.
 
@@ -609,5 +624,160 @@ Wait, can we write the machine code directly? Well... yes. Of course we can. You
 
  So, here's what we'll do. We'll write a small utility in Rust to help us write machine code. It will have a simple API that allows us to write bytes to a buffer. We'll use this utility to write the machine code for our TCP server.
 
- Technically, isn't this a build-time dependency?. F\*ck you! This is my blog post. I tried writing the machine code by hand, and it's a pain to change, and also you wouldn't be able to understand anything. This is basically the same thing. So, let's do it.
+You can find [the code for this section here](https://github.com/laurci/x86-machine-code-http-server).
 
+ Technically, isn't this also a build-time dependency? F\*ck you! This is my blog post. I tried writing the machine code by hand, it's a pain to change, and also you wouldn't be able to understand anything. This is basically the same thing. So, let's do it. You can take a look at [this basic utility here](https://github.com/laurci/x86-machine-code-http-server/blob/master/src/bytes.rs). Ok, we're ready, let's do it! But, first, what doest it mean to run a program?
+
+ When you run a program, the OS needs to load it into memory, resolve your dynamically linked dependencies, setup some internal process stuff to keep track of execution and then jump to the entry point of your program. But how does the OS know where to load your program in memory? How does it know where the entry point is? How does it know what dependencies to resolve?
+
+The thing is, when the compiler generates an executable, it adds some metadata to the resulting file. Depending on the executable format, this metadata looks different. On Linux, the most common executable format is __ELF__ (Executable and Linkable Format). The file always starts with the __ELF header__, followed by program and section headers. The headers contain information about the program, like the entry point, the memory layout, the dependencies, etc. The [ELF wikipedia page](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) is a good place to start if you want to learn more.
+
+So, before we wrte the machine code, we need to write the ELF header. Here's how it looks like:
+
+```rust
+header.add(bytes![0x7f, b'E', b'L', b'F']); // magic number
+header.add(0x01u8.into()); // 32-bit
+header.add(0x01u8.into()); // little endian
+header.add(0x01u8.into()); // version 1
+header.add(0x03u8.into()); // ABI | 0x03 = Linux
+header.add(0x00u8.into()); // ABI version
+header.add(bytes![0x00] * 7); // padding
+
+assert!(header.len() == 0x10); // 16 bytes
+
+header.set_append_byte_order(AppendByteOrder::LittleEndian); // will automatically reverse the bytes
+
+header.add(0x02u16.into()); // executable
+header.add(0x03u16.into()); // x86
+header.add(0x01u32.into()); // ELF version 1
+header.add(program_vaddr.into()); // entry point
+header.add(0x34u32.into()); // program header offset
+header.add(0x00u32.into()); // section header offset | no section headers
+header.add(bytes![0x00] * 4); // flags
+header.add(0x34u16.into()); // header size (52 bytes)
+
+header.add(0x20u16.into()); // program header size (32 bytes)
+header.add(0x01u16.into()); // number of program header entries
+
+header.add(0x00u16.into()); // section header size | no section headers
+header.add(0x00u16.into()); // number of section header entries | no section headers
+header.add(0x00u16.into()); // section header string table index | no section headers
+
+assert!(header.len() == 0x34); // 52 bytes
+```
+
+
+We start with the magic number, followed by the class (32-bit), the byte order (little endian), the version (1), the ABI (Linux), the ABI version, and some padding. After that, we set the byte order to little endian as specifier and add some more information about the execution of the program.
+
+We can then proceed with exactly one program header entry. Here's how it looks like:
+
+```rust
+header.add(0x01u32.into()); // PT_LOAD | loadable segment
+header.add(program_start_offset.into()); // segment offset in file
+header.add(program_vaddr.into()); // virtual address
+header.add(0x00u32.into()); // physical address | not used
+header.add((program.len() as u32).into()); // segment size in file
+header.add((program.len() as u32).into()); // segment size in memory
+header.add((1u32 | 2u32 | 4u32).into()); // segment flags | read, write, execute
+header.add(0x1000u32.into()); // segment alignment | 4096 bytes (4kb)
+```
+
+The program header specifies how the program should be loaded into memory. This is the minimum required to run the program. Actually, this entire ELF header is the minimum required to run a program.
+
+Now we can continue to append the machine code to the buffer. We'll convert our assembly code to machine code by hand and write it to the buffer. But before we do that, we need to know what the machine code instructions are. You can find [the official intel docs here](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html). We're most interested in VOL 2, sections 3.1, 3.2 (for INT), 4.3 (for MOV) and Appendix A (the opcode map). Another amazing resource I advise you take a look at is the [x86asm.net coder64 reference](http://ref.x86asm.net/coder64.html).
+
+So, for our TCP server, we mostly need to do syscalls, which mostly use a number of `mov` instructions and one `int` instruction.
+
+Most of the `mov` instructions move immediate values (constants) into registers. If we take a look in the specification, we can see that the encoding for `mov imm -> reg` is `0xb8 + reg` followed by the immediate value. So, for example, `mov eax, 0x01` would be encoded as `0xb8 0x01 0x00 0x00 0x00` and `mov ebx, 0x05` would be encoded as `0xbb 0x05 0x00 0x00 0x00`. Also, some of you might notice that the immediate value is in little endian.
+
+So, let's try to encode a few instructions.
+
+```rust
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EAX] + SYS_SOCKET.into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EBX] + (AF_INET as u32).into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_ECX] + (SOCK_STREAM as u32).into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EDX] + 0x00u32.into_bytes_le());
+```
+
+This program encodes the following assembly:
+
+```S
+mov eax, SYS_SOCKET
+mov ebx, AF_INET
+mov ecx, SOCK_STREAM
+mov edx, 0
+```
+
+You might recognize this as the `socket(AF_INET, SOCK_STREAM, 0)` syscall from our C code. We're making progress. But it's missing something. We need to trigger the syscall with the `int` instruction. The encoding for the `int` instruction is `0xcd` followed by the interrupt number. The interrupt number for syscalls is `0x80`. So, to trigger a syscall, we need to add `0xcd 0x80` to the buffer. Here's the final syscall code:
+
+```rust
+// serverfd = socket(AF_INET, SOCK_STREAM, 0)
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EAX] + SYS_SOCKET.into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EBX] + (AF_INET as u32).into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_ECX] + (SOCK_STREAM as u32).into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EDX] + 0x00u32.into_bytes_le());
+program.add(bytes![ISA_INT, 0x80]);
+```
+
+Let's try to encode a `write(1, msg, len)` syscall. First, we need a way to encode the `msg` into memory, and how to get a pointer to it. But first, let's write the instructions for the syscall itself.
+
+```rust
+let log_message = "http server listening on 0.0.0.0:8080\n".into_bytes();
+
+// write(STDOUT, *log_message, len(log_message))
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EAX] + SYS_WRITE.into_bytes_le());
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EBX] + 0x01u32.into_bytes_le());
+let log_message_buffer_load = program.len();
+program.add(bytes![ISA_MOV_IMM32_TO_R32 + REG_ECX] + 0xaabbccddu32.into_bytes_le());
+program
+    .add(bytes![ISA_MOV_IMM32_TO_R32 + REG_EDX] + (log_message.len() as u32).into_bytes_le());
+program.add(bytes![ISA_INT, 0x80]);
+```
+
+As you can see, instead of the pointer to the message, we have a placeholder `0xaabbccdd`. We'll replace this with the actual address of the message after we encode the message into memory. But to do this, we need to know where we added the placeholder. We keep this information in the `log_message_buffer_load` variable.
+
+We can now add the message at the end of the buffer (after the program code) and replace the placeholder with the address of the message.
+
+```rust
+let log_message_buffer = program.len();
+program.add(log_message);
+program.set_at(
+    log_message_buffer_load + 1,
+    (program_vaddr + log_message_buffer as u32).into_bytes_le(),
+);
+```
+
+This method is called backpatching. We add a placeholder in the code, and then we replace it with the actual value after we know it. This is a common technique in assemblers.
+
+We can do something similar for the jump instructions too. To jump to an address close to the current instruction, we can use a relative jump (`jmp rel8` in our case). The encoding for a relative jump is `0xeb` followed by the offset. The offset is the number of bytes to jump. So, if we want to jump 5 bytes forward, we need to add `0xeb 0x05` to the buffer.
+
+```rust
+// accept_client loop start label
+let accept_client = program.len() as isize;
+
+// ... some more code ...
+
+// jump back to accept_client
+let here = program.len() as isize;
+assert!((accept_client - here).abs() < 128);
+let jump_size = (accept_client - here) as i8 - 2;
+program.add(bytes![ISA_JMP_REL8] + jump_size.into_bytes());
+```
+
+We first save the current position in the buffer as the `accept_client` label. Later on, we can calculate the offset to jump back to the `accept_client` label and add it to the buffer.
+
+This are the basics of encoding instructions. There really isn't much more to it. You can take a look at the [full code here](https://github.com/laurci/x86-machine-code-http-server/blob/master/src/main.rs).
+
+I also used the same tricks with the static response body and the server address byte array representation as we did in the assembly code.
+
+You can access [a live version of this webpage here](https://laurci.github.io/x86-machine-code-http-server/).
+
+## conclusion
+
+See, not that hard. You just witness the essence of computing. We went to the very bottom and heard how the sillicon screams in agony.
+
+Anyway, these posts take a lot of time to prepare and write. If you like the content I’m making and you wish to support these kinds of useless but fun journeys, [I have a GitHub Sponsors page now](https://github.com/sponsors/laurci/)!
+
+That being said, thanks for walking with me! Have a nice one! F\*ck NextJS!
+
+Oh, and remember, always drink your water! 🚰 
