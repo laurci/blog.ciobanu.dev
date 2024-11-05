@@ -632,7 +632,7 @@ You can find [the code for this section here](https://github.com/laurci/x86-mach
 
 The thing is, when the compiler generates an executable, it adds some metadata to the resulting file. Depending on the executable format, this metadata looks different. On Linux, the most common executable format is __ELF__ (Executable and Linkable Format). The file always starts with the __ELF header__, followed by program and section headers. The headers contain information about the program, like the entry point, the memory layout, the dependencies, etc. The [ELF wikipedia page](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) is a good place to start if you want to learn more.
 
-So, before we wrte the machine code, we need to write the ELF header. Here's how it looks like:
+So, before we write the machine code, we need to write the ELF header. Here's how it looks like:
 
 ```rust
 header.add(bytes![0x7f, b'E', b'L', b'F']); // magic number
