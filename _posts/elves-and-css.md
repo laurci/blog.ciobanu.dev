@@ -774,7 +774,7 @@ You can access [a live version of this webpage here](https://laurci.github.io/x8
 
 ## conclusion
 
-See, not that hard. You just witness the essence of computing. We went to the very bottom and heard how the sillicon screams in agony.
+See, not that hard. You just witnessed the essence of computing. We went to the very bottom and heard how the sillicon screams in agony.
 
 Anyway, these posts take a lot of time to prepare and write. If you like the content I’m making and you wish to support these kinds of useless but fun journeys, [I have a GitHub Sponsors page now](https://github.com/sponsors/laurci/)!
 
