@@ -13,6 +13,7 @@ export default async function markdownToHtml(markdown: string) {
         .use(rehypeHighlight, {
             languages: {
                 's': require("highlight.js/lib/languages/x86asm"),
+                'llvm': require("highlight.js/lib/languages/llvm")
             }
         })
         .use(rehypeStringify)
